@@ -1,0 +1,151 @@
+[
+  {
+    "id": 1,
+    "type": "Simple Fact Retrieval",
+    "query": "What are the ingredients used in the Sweet Alanka recipe?",
+    "expected_keywords": ["flour", "salt", "eggs", "sugar", "buttermilk", "vanilla extract", "almond extract"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 2,
+    "type": "Simple Fact Retrieval",
+    "query": "List the flavor molecules associated with Green Tea.",
+    "expected_keywords": ["sweet", "citrus", "herbal", "burnt", "phenolic", "nutty"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 3,
+    "type": "Simple Fact Retrieval",
+    "query": "What cuisine or region does the recipe 'Apple Jack Iowa Pork Chops' belong to?",
+    "expected_keywords": ["North American", "US", "Des Moines", "Iowa"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 4,
+    "type": "Simple Fact Retrieval",
+    "query": "Identify the category for the ingredient 'Salt' in the ontology.",
+    "expected_keywords": ["Additive", "Ingredient"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 5,
+    "type": "Simple Fact Retrieval",
+    "query": "What is the ID associated with the Apple Jack Iowa Pork Chops recipe?",
+    "expected_keywords": ["17098"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 6,
+    "type": "Simple Fact Retrieval",
+    "query": "Does the ontology provide molecular mappings for every ingredient?",
+    "expected_keywords": ["No", "contiguous", "some ingredients do not have detailed mapping"],
+    "difficulty": "Medium"
+  },
+  {
+    "id": 7,
+    "type": "Multi-hop Reasoning",
+    "query": "Find a recipe that uses an ingredient categorized as an 'Additive'.",
+    "expected_keywords": ["Apple Jack Iowa Pork Chops", "Sweet Alanka", "Salt"],
+    "reasoning_steps": "Identify 'Additive' -> Find 'Salt' -> Find Recipe using 'Salt'",
+    "difficulty": "Hard"
+  },
+  {
+    "id": 8,
+    "type": "Multi-hop Reasoning",
+    "query": "Suggest a recipe that includes an ingredient with a 'nutty' flavor profile.",
+    "expected_keywords": ["Sweet Alanka", "Almond extract", "Pecans"],
+    "reasoning_steps": "Find ingredient with 'nutty' profile (Almond/Pecan) -> Find Recipe using that ingredient",
+    "difficulty": "Hard"
+  },
+  {
+    "id": 9,
+    "type": "Multi-hop Reasoning",
+    "query": "Which recipe from the US contains an ingredient derived from a dairy source?",
+    "expected_keywords": ["Sweet Alanka", "Buttermilk", "Butter"],
+    "reasoning_steps": "Identify US Recipe -> Check ingredients for Dairy (Buttermilk)",
+    "difficulty": "Hard"
+  },
+  {
+    "id": 10,
+    "type": "Multi-hop Reasoning",
+    "query": "I want to cook something that uses vanilla. What are my options?",
+    "expected_keywords": ["Sweet Alanka"],
+    "reasoning_steps": "Match 'vanilla' to 'Vanilla Extract' -> Find linked Recipe",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 11,
+    "type": "Multi-hop Reasoning",
+    "query": "Are there any recipes that use both sugar and eggs?",
+    "expected_keywords": ["Sweet Alanka"],
+    "reasoning_steps": "Intersect set of recipes with Sugar and recipes with Eggs",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 12,
+    "type": "Summarization",
+    "query": "Describe the full taste profile of Green Tea.",
+    "expected_keywords": ["sweet", "herbal", "citrus", "floral", "fruity"],
+    "note": "Check for concise summary of the many molecules listed in source 28",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 13,
+    "type": "Summarization",
+    "query": "How do I prepare the coconut paste for the curry recipe mentioned?",
+    "expected_keywords": ["fry", "stirring", "coconut", "sugar", "immediately"],
+    "note": "Based on text fragment in source 45",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 14,
+    "type": "Summarization",
+    "query": "Give me a summary of the 'Sweet Alanka' recipe including ingredients and steps.",
+    "expected_keywords": ["mix", "ingredients", "flour", "eggs", "bake", "fry"],
+    "difficulty": "Medium"
+  },
+  {
+    "id": 15,
+    "type": "Summarization",
+    "query": "Explain the relationship between ingredients and flavor molecules in this system.",
+    "expected_keywords": ["mapped", "constituent", "taste", "molecular", "graph"],
+    "difficulty": "Hard"
+  },
+  {
+    "id": 16,
+    "type": "Negative Test",
+    "query": "How do I make a pepperoni pizza?",
+    "expected_keywords": ["not found", "context", "information missing"],
+    "note": "System should admit it doesn't know if not in graph",
+    "difficulty": "Medium"
+  },
+  {
+    "id": 17,
+    "type": "Negative Test",
+    "query": "What is the flavor profile of Uranium?",
+    "expected_keywords": ["not edible", "not in ontology", "unknown"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 18,
+    "type": "Simple Fact Retrieval",
+    "query": "What database is the ontology derived from?",
+    "expected_keywords": ["RecipeDB", "FlavorDB"],
+    "difficulty": "Easy"
+  },
+  {
+    "id": 19,
+    "type": "Multi-hop Reasoning",
+    "query": "List all ingredients in 'Apple Jack Iowa Pork Chops' that are NOT spices.",
+    "expected_keywords": ["Pork Chops", "Apple", "Ingredient 60"],
+    "reasoning_steps": "List ingredients -> Filter out Salt/Spices",
+    "difficulty": "Hard"
+  },
+  {
+    "id": 20,
+    "type": "Summarization",
+    "query": "What makes RecipeOnt different from traditional food databases?",
+    "expected_keywords": ["molecular", "flavor profiles", "structured", "ontology", "relationships"],
+    "difficulty": "Medium"
+  }
+]

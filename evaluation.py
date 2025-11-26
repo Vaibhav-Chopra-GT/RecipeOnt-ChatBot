@@ -45,9 +45,12 @@ print("Mistral model loaded successfully.")
 # -------------------------------
 def generate_answer_with_context(query, context):
     """Use the Mistral model to answer a question using retrieved context."""
-    prompt = f"""Answer the question using your own knowledge
+    prompt = f"""Answer the question using the context if it’s relevant. 
+If not, rely on your own knowledge. Prefer information from the context when possible, 
+and rewrite any raw or encoded data into clean, natural language.
 
-
+Context:
+{context}
 
 Question:
 {query}
@@ -84,15 +87,15 @@ def ask():
 
     # Retrieve relevant context
     context = retrieve_context(user_input)
-    print("Context retrieved successfully.")
-
+    
     # Generate the full answer
-    print("Generating full answer...")
     full_answer = generate_answer_with_context(user_input, context)
-    print("Answer generation complete.")
 
-    # Return the full answer as a single JSON object
-    return jsonify({"answer": full_answer})
+    # UPDATED RETURN STATEMENT: Include 'context' in the response
+    return jsonify({
+        "answer": full_answer, 
+        "context": context
+    })
 
 # -------------------------------
 # Run the Flask App

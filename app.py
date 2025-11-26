@@ -11,7 +11,7 @@ import numpy as np
 app = Flask(__name__)
 
 # -------------------------------
-# Load FAISS index and documents
+# Loading FAISS index and documents
 # -------------------------------
 print("Loading FAISS index and documents...")
 faiss_index = faiss.read_index("faiss_index.index")
@@ -20,13 +20,13 @@ with open("all_documents.json", "r") as f:
 print(f"Index with {faiss_index.ntotal} vectors and {len(all_documents)} documents loaded successfully.")
 
 # -------------------------------
-# Load embedding model
+# Loading embedding model
 # -------------------------------
 print("Loading SentenceTransformer model...")
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
 # -------------------------------
-# Load local Mistral model
+# Loading local Mistral model
 # -------------------------------
 print("Loading local Mistral model...")
 llm = AutoModelForCausalLM.from_pretrained(
