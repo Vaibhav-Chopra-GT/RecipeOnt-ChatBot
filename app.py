@@ -96,7 +96,32 @@ def ask():
 
     # Return the full answer as a single JSON object
     return jsonify({"answer": full_answer})
+# Add this to app.py under the existing /ask route
 
+@app.route("/ask_baseline", methods=["POST"])
+def ask_baseline():
+    """
+    Asks Mistral directly WITHOUT retrieving any context.
+    Used for baseline comparison.
+    """
+    user_input = request.json.get("user_input", "")
+    print(f"\n--- Baseline Query: {user_input} ---")
+
+    # Direct prompt without context
+    prompt = f"""Answer the following question based on your own knowledge.
+    
+Question:
+{user_input}
+
+Answer:"""
+
+    full_response = llm(prompt)
+    
+    # Return empty context to indicate no RAG was used
+    return jsonify({
+        "answer": full_response, 
+        "context": "NO CONTEXT USED (BASELINE)"
+    })
 # -------------------------------
 # Run the Flask App
 # -------------------------------
