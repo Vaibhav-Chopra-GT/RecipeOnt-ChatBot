@@ -74,7 +74,7 @@ def run_evaluation():
         # --- A. Query your Local Mistral App ---
         try:
             # We assume your app now returns {"answer": "...", "context": "..."}
-            response = requests.post(FLASK_API_URL, json={"user_input": query}, timeout=120)
+            response = requests.post(FLASK_API_URL, json={"user_input": query}, timeout=500)
             if response.status_code != 200:
                 print(f"Error querying Flask: {response.status_code}")
                 continue
@@ -128,7 +128,7 @@ def run_evaluation():
         })
         
         # Small sleep to avoid rate limits if using free tier keys
-        time.sleep(0.5)
+        time.sleep(1.5)
 
     # 3. Save and Summarize
     df = pd.DataFrame(results)

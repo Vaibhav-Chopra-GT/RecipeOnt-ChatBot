@@ -33,10 +33,9 @@ llm = AutoModelForCausalLM.from_pretrained(
     "./",
     model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
     model_type="mistral",
-    # gpu_layers=20,
-    max_new_tokens=1000,
-    context_length=2048,
-    # threads=8
+    max_new_tokens=1000,      # ⬅️ reduce from 1000
+    context_length=2048,     # ⬅️ reduce from 2048
+    # threads=4                # ⬅️ cap CPU usage
 )
 print("Mistral model loaded successfully.")
 
@@ -44,9 +43,13 @@ print("Mistral model loaded successfully.")
 # Helper: Generate answer with context
 # -------------------------------
 def generate_answer_with_context(query, context):
-    """Use the Mistral model to answer a question using retrieved context."""
-    prompt = f"""Answer the question using the context if it’s relevant. 
-If not, rely on your own knowledge. Prefer information from the context when possible, 
+    """
+    Uses the local Mistral model to answer a question using retrieved context.
+    This function is protected against model crashes so Flask does not return 500.
+    """
+    try:
+        prompt = f"""Answer the question using the context if it’s relevant.
+If not, rely on your own knowledge. Prefer information from the context when possible,
 and rewrite any raw or encoded data into clean, natural language.
 
 Context:
@@ -57,11 +60,25 @@ Question:
 
 Answer:"""
 
-    # Get the full response from the model
-    # (Removed stream=True)
-    full_response = llm(prompt)
-    
-    return full_response
+        # Call local Mistral model
+        response = llm(prompt)
+
+        # Safety: ensure a string is always returned
+        if response is None or not isinstance(response, str):
+            return "ERROR: Model returned an invalid response."
+
+        return response
+
+    except Exception as e:
+        # Log error but DO NOT crash Flask
+        print("\n🚨 LLM GENERATION ERROR 🚨")
+        print(str(e))
+        print("Returning safe fallback response.\n")
+
+        return (
+            "ERROR: The local language model failed to generate a response. "
+            "This may be due to resource limits or high load."
+        )
 
 # -------------------------------
 # Helper: Retrieve relevant docs
@@ -95,7 +112,10 @@ def ask():
     print("Answer generation complete.")
 
     # Return the full answer as a single JSON object
-    return jsonify({"answer": full_answer})
+    return jsonify({
+        "answer": full_answer, 
+        "context": context
+    })
 # Add this to app.py under the existing /ask route
 
 @app.route("/ask_baseline", methods=["POST"])
@@ -126,4 +146,7 @@ Answer:"""
 # Run the Flask App
 # -------------------------------
 if __name__ == "__main__":
-    app.run(debug=True, threaded=True)
+    app.run(
+        debug=False,
+        threaded=False
+    )

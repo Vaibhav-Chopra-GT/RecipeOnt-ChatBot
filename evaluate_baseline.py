@@ -63,7 +63,7 @@ def run_baseline_evaluation():
         # --- A. Get Baseline Answer (No RAG) ---
         try:
             # We call the NEW route
-            res_base = requests.post(BASELINE_API_URL, json={"user_input": query}, timeout=60)
+            res_base = requests.post(BASELINE_API_URL, json={"user_input": query}, timeout=500)
             baseline_answer = res_base.json().get("answer", "Error")
         except Exception as e:
             print(f"Baseline API Error: {e}")
@@ -73,7 +73,7 @@ def run_baseline_evaluation():
         # We need to know the 'Truth' to judge the baseline, so we ask the RAG system 
         # just to fetch the documents, ignoring its answer.
         try:
-            res_rag = requests.post(RAG_API_URL, json={"user_input": query}, timeout=60)
+            res_rag = requests.post(RAG_API_URL, json={"user_input": query}, timeout=500)
             ground_truth_context = res_rag.json().get("context", "")
         except:
             ground_truth_context = "Could not fetch ground truth context."
