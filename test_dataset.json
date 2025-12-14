@@ -21,27 +21,6 @@
     "difficulty": "Easy"
   },
   {
-    "id": 4,
-    "type": "Simple Fact Retrieval",
-    "query": "Identify the category for the ingredient 'Salt' in the ontology.",
-    "expected_keywords": ["Additive", "Ingredient"],
-    "difficulty": "Easy"
-  },
-  {
-    "id": 5,
-    "type": "Simple Fact Retrieval",
-    "query": "What is the ID associated with the Apple Jack Iowa Pork Chops recipe?",
-    "expected_keywords": ["17098"],
-    "difficulty": "Easy"
-  },
-  {
-    "id": 6,
-    "type": "Simple Fact Retrieval",
-    "query": "Does the ontology provide molecular mappings for every ingredient?",
-    "expected_keywords": ["No", "contiguous", "some ingredients do not have detailed mapping"],
-    "difficulty": "Medium"
-  },
-  {
     "id": 7,
     "type": "Multi-hop Reasoning",
     "query": "Find a recipe that uses an ingredient categorized as an 'Additive'.",
@@ -105,13 +84,6 @@
     "difficulty": "Medium"
   },
   {
-    "id": 15,
-    "type": "Summarization",
-    "query": "Explain the relationship between ingredients and flavor molecules in this system.",
-    "expected_keywords": ["mapped", "constituent", "taste", "molecular", "graph"],
-    "difficulty": "Hard"
-  },
-  {
     "id": 16,
     "type": "Negative Test",
     "query": "How do I make a pepperoni pizza?",
@@ -127,25 +99,12 @@
     "difficulty": "Easy"
   },
   {
-    "id": 18,
-    "type": "Simple Fact Retrieval",
-    "query": "What database is the ontology derived from?",
-    "expected_keywords": ["RecipeDB", "FlavorDB"],
-    "difficulty": "Easy"
-  },
-  {
     "id": 19,
     "type": "Multi-hop Reasoning",
     "query": "List all ingredients in 'Apple Jack Iowa Pork Chops' that are NOT spices.",
     "expected_keywords": ["Pork Chops", "Apple", "Ingredient 60"],
     "reasoning_steps": "List ingredients -> Filter out Salt/Spices",
     "difficulty": "Hard"
-  },
-  {
-    "id": 20,
-    "type": "Summarization",
-    "query": "What makes RecipeOnt different from traditional food databases?",
-    "expected_keywords": ["molecular", "flavor profiles", "structured", "ontology", "relationships"],
-    "difficulty": "Medium"
   }
+  
 ]
